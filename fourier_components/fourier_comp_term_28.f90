@@ -1,0 +1,16 @@
+module fourier_comp_term_28_mod
+  implicit none
+contains
+  real(8) function compute_fourier_comp_term_28(x)
+    real(8), intent(in) :: x
+    compute_fourier_comp_term_28 = (x ** 28) / 28.0d0
+  end function
+end module
+
+program test_fourier_comp_term_28
+  use fourier_comp_term_28_mod
+  implicit none
+  real(8) :: res
+  res = compute_fourier_comp_term_28(1.0d0)
+  if (abs(res - (1.0d0 / 28.0d0)) > 1d-7) stop 1
+end program
