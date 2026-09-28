@@ -1,0 +1,33 @@
+module laguerre_poly_52_mod
+  implicit none
+contains
+  real(8) function evaluate_laguerre_poly_52(x)
+    real(8), intent(in) :: x
+    real(8) :: p0, p1, p_next
+    integer :: k
+    if (52 == 0) then
+      evaluate_laguerre_poly_52 = 1.0d0
+      return
+    end if
+    if (52 == 1) then
+      evaluate_laguerre_poly_52 = 1.0d0 - x
+      return
+    end if
+    p0 = 1.0d0
+    p1 = 1.0d0 - x
+    do k = 1, 52 - 1
+      p_next = ((2.0d0 * dble(k) + 1.0d0 - x) * p1 - dble(k) * p0) / dble(k + 1)
+      p0 = p1
+      p1 = p_next
+    end do
+    evaluate_laguerre_poly_52 = p1
+  end function
+end module
+
+program test_laguerre_poly_52
+  use laguerre_poly_52_mod
+  implicit none
+  real(8) :: res
+  res = evaluate_laguerre_poly_52(0.5d0)
+  if (res /= res) stop 1
+end program
